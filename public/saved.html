@@ -34,7 +34,7 @@
                         <!-- insert body -->
                         <p></p>
                     </div>
-                    <button class="ml-3 btn-primary">Article Notes</button>
+                    <button id="comment1" class="ml-3 btn-primary">Article Notes</button>
                     <button class="ml-3 btn-danger">Remove</button>
                 </div>
             </li>
@@ -80,6 +80,31 @@
         </ul>
     </div>
 
+    <div class="modal fade mainSaved modal" id="comments" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    <h4 class="modal-title">Article Notes</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- saved comments go in p tag below -->
+                    <p></p>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Enter comments here:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-success">Save</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="lowerTag">
 
         <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
@@ -88,5 +113,11 @@
         </a>
     </div>
 </body>
+
+<script type="text/javascript">
+    $("#comment1").click(function() {
+        $("#comments").modal("show")
+    });
+</script>
 
 </html>
