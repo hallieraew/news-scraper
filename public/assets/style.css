@@ -1,4 +1,4 @@
-  body {
+      body {
       background-image: url(./images/utsav-srestha-HeNrEdA4Zp4-unsplash.jpg);
       justify-content: center;
   }
@@ -6,7 +6,7 @@
   .jumbotron {
       text-align: center;
       font-family: 'Sen', sans-serif;
-      ;
+      padding: 15px;
   }
   
   .main {
@@ -17,7 +17,13 @@
       padding: 15px;
   }
   
+  .mainSaved {
+      font-family: 'Sen', sans-serif;
+      background-color: whitesmoke;
+      margin: 0 auto;
+      padding: 15px;
+  }
+  
   #lowerTag {
       position: fixed;
       bottom: 0;
-  }
