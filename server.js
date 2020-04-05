@@ -55,3 +55,16 @@ app.get("/scrape", function(req, res) {
         res.send("complete");
     })
 })
+
+app.get("/saved", function(req, res) {
+    db.articles.find({})
+
+    .populate("comments")
+
+    .then(function(dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function(err) {
+            res.json(err);
+        })
+});
