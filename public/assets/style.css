@@ -1,0 +1,23 @@
+  body {
+      background-image: url(./images/utsav-srestha-HeNrEdA4Zp4-unsplash.jpg);
+      justify-content: center;
+  }
+  
+  .jumbotron {
+      text-align: center;
+      font-family: 'Sen', sans-serif;
+      ;
+  }
+  
+  .main {
+      font-family: 'Sen', sans-serif;
+      text-align: center;
+      background-color: whitesmoke;
+      margin: 0 auto;
+      padding: 15px;
+  }
+  
+  #lowerTag {
+      position: fixed;
+      bottom: 0;
+  }

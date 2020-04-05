@@ -26,15 +26,15 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.get("/scrape", function(req, res) {
 
-    axios.get("https://www.nytimes.com/section/us").then(function(response) {
+    axios.get("https://www.nytimes.com/section/world").then(function(response) {
 
         var $ = cheerio.load(response.data);
 
-        $("h2").each(function(i, element) {
+        $("li").each(function(i, element) {
 
             var result = {};
 
-            result.headline = $(this).find("a").text();
+            result.headline = $(this).find("h2").text();
 
             result.link = $(this).children().find("a").attr("href");
 
