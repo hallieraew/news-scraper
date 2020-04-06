@@ -23,11 +23,10 @@ app.use(express.static("public"));
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 // Routes
-
+console.log(db.Article);
 axios.get("https://www.nytimes.com").then(function(response) {
 
     var $ = cheerio.load(response.data);
-    var result = [];
 
     $("article").each(function(i, element) {
 
@@ -38,13 +37,23 @@ axios.get("https://www.nytimes.com").then(function(response) {
 
         var summary = $(element).children().find("p").text();
 
-        result.push({
-            headline: headline,
-            summary: summary,
-            link: link
-        });
-        console.log(result);
+        if (headline && link && summary) {
 
+            db.Article.create({
+                    headline: headline,
+                    link: link,
+                    summary: summary
+                },
+                function(err, inserted) {
+                    if (err) {
+                        // Log the error if one is encountered during the query
+                        console.log(err);
+                    } else {
+                        // Otherwise, log the inserted data
+                        console.log(inserted);
+                    }
+                });
+        };
     })
 });
 // app.get("/scraped", function(req, res) {
