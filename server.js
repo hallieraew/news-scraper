@@ -6,7 +6,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-// Require all models
+
 var db = require("./models");
 
 var PORT = 3000;
@@ -20,10 +20,11 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+require("./routes/apiRoutes.js");
+require("./routes/htmlRoutes");
+
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
-// Routes
-console.log(db.Article);
 axios.get("https://www.nytimes.com").then(function(response) {
 
     var $ = cheerio.load(response.data);
@@ -46,17 +47,28 @@ axios.get("https://www.nytimes.com").then(function(response) {
                 },
                 function(err, inserted) {
                     if (err) {
-                        // Log the error if one is encountered during the query
                         console.log(err);
                     } else {
-                        // Otherwise, log the inserted data
                         console.log(inserted);
                     }
                 });
         };
     })
 });
-// app.get("/scraped", function(req, res) {
+
+app.get("/articles", function(req, res) {
+
+    db.Article.find({}, function(error, found) {
+        if (error) {
+            console.log(error);
+        } else {
+            res.json(found);
+        }
+    });
+});
+
+
+// app.get("/articles", function(req, res) {
 
 //     db.Article.create(result)
 //         .then(function(dbArticle) {
@@ -86,3 +98,7 @@ axios.get("https://www.nytimes.com").then(function(response) {
 
 //         })
 // });
+
+app.listen(PORT, function() {
+    console.log("App running on port " + PORT + "!");
+});
