@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 require("./routes/apiRoutes.js");
-require("./routes/htmlRoutes");
+require("./routes/htmlRoutes.js");
 
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
@@ -68,36 +68,19 @@ app.get("/articles", function(req, res) {
 });
 
 
-// app.get("/articles", function(req, res) {
+app.get("/saved", function(req, res) {
+    db.Article.find({})
 
-//     db.Article.create(result)
-//         .then(function(dbArticle) {
-//             // View the added result in the console
-//             console.log(dbArticle);
-//         })
-//         .catch(function(err) {
-//             // If an error occurred, log it
-//             console.log(err);
-//         });
+    .populate("comments")
 
-//     res.send("complete");
-// })
+    .then(function(dbArticle) {
+            res.json(dbArticle);
+        })
+        .catch(function(err) {
+            res.json(err);
 
-
-
-// app.get("/saved", function(req, res) {
-//     db.articles.find({})
-
-//     .populate("comments")
-
-//     .then(function(dbArticle) {
-//             res.json(dbArticle);
-//         })
-//         .catch(function(err) {
-//             res.json(err);
-
-//         })
-// });
+        })
+});
 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");

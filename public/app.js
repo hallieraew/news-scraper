@@ -1,10 +1,33 @@
 $("#new").click(function() {
     console.log("clicked");
-    $.get("/articles", function(data) {
-        // For each one
+    $.get("/api/articles", function(data) {
+
         for (var i = 0; i < data.length; i++) {
-            $("#article").append("<h5>" + data[i].headline + "<br />" + data[i].link + "</h5>");
-            // $("#summary").append(data[i].summary);
+
+            var newRow = $("<div>").append(
+                $("<h5>").text(data[i].headline),
+                $("<p>").text(data[i].summary),
+                $("<button>").addClass("mr-3 btn-success saveIt").text("Save")
+                // need to add in links for Read full article :D 
+            );
+            $("#article").append(newRow);
+
         }
     });
+});
+
+$(".saveIt").click(function() {
+    console.log("clicked");
+
+    $.get("/saved/:id", function(req, res) {
+        var saved = req.params.id;
+
+        db.Article.findOneAndUpdate({ _id: saved }, { "saved": true }), (function(err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result)
+            }
+        })
+    })
 });
