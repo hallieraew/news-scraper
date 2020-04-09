@@ -5,9 +5,9 @@ $("#new").click(function() {
         for (var i = 0; i < data.length; i++) {
 
             var newRow = $("<div>").append(
-                $("<h5>").text(data[i].headline),
+                $("<h5>").addClass("mt-0 mb-1").text(data[i].headline),
                 $("<p>").text(data[i].summary),
-                $("<button>").addClass("mr-3 btn-success saveIt").text("Save")
+                $("<button>").addClass("ml-3 btn-success").text("Save")
                 // need to add in links for Read full article :D 
             );
             $("#article").append(newRow);

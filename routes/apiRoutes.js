@@ -15,7 +15,7 @@ module.exports = function(app) {
     });
 
     app.get("/api/saved", function(req, res) {
-        db.Article.find({})
+        db.Article.find({ "saved": true })
 
         .populate("comments")
 

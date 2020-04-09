@@ -20,67 +20,13 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-require("./routes/apiRoutes.js");
-require("./routes/htmlRoutes.js");
+require("./routes/apiRoutes")(app);
+require("./routes/axiosScrape")(app);
+require("./routes/htmlRoutes")(app);
+
 
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
-axios.get("https://www.nytimes.com").then(function(response) {
-
-    var $ = cheerio.load(response.data);
-
-    $("article").each(function(i, element) {
-
-
-        var headline = $(element).children().find("h2").text();
-
-        var link = $(element).children().find("a").attr("href");
-
-        var summary = $(element).children().find("p").text();
-
-        if (headline && link && summary) {
-
-            db.Article.create({
-                    headline: headline,
-                    link: link,
-                    summary: summary
-                },
-                function(err, inserted) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(inserted);
-                    }
-                });
-        };
-    })
-});
-
-app.get("/articles", function(req, res) {
-
-    db.Article.find({}, function(error, found) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.json(found);
-        }
-    });
-});
-
-
-app.get("/saved", function(req, res) {
-    db.Article.find({})
-
-    .populate("comments")
-
-    .then(function(dbArticle) {
-            res.json(dbArticle);
-        })
-        .catch(function(err) {
-            res.json(err);
-
-        })
-});
 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
