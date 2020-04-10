@@ -7,7 +7,8 @@ var cheerio = require("cheerio");
 
 var db = require("../models");
 
-module.exports = function() {
+
+module.exports = function axiosScrape() {
 
     axios.get("https://www.nytimes.com").then(function(response) {
 

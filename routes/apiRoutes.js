@@ -1,5 +1,6 @@
 var db = require("../models");
 var mongoose = require("mongoose");
+var axiosScrape = require("./axiosScrape");
 
 module.exports = function(app) {
 
@@ -10,6 +11,14 @@ module.exports = function(app) {
         }).catch(function(err) {
             res.json(err)
         });
+    });
+
+    app.get("/api/scraped", function(req, res) {
+        axiosScrape().then(function(data) {
+            res.json(data)
+        }).catch(function(err) {
+            res.json(err)
+        })
     });
 
     // set new api route here for scraped articles and call scrape function

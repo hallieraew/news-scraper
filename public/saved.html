@@ -27,57 +27,12 @@
     <div class="mainSaved">
         <ul class="list-unstyled">
             <li class="media">
-                <div id="articleCard" class="media">
-                    <div class="media-body">
-                        <!-- insert headline in h5 -->
-                        <h5 class="mt-0 mb-1"></h5>
-                        <!-- insert body -->
-                        <p></p>
-                    </div>
-                    <button id="comment1" class="ml-3 btn-primary">Article Notes</button>
-                    <button class="ml-3 btn-danger">Remove</button>
-                </div>
-            </li>
-            <br>
-            <li class="media">
                 <div class="media">
-                    <div class="media-body">
-                        <!-- insert headline in h5 -->
-                        <h5 class="mt-0 mb-1"></h5>
-                        <!-- insert body -->
-                        <p></p>
-                    </div>
-                    <button class="ml-3 btn-primary">Article Notes</button>
-                    <button class="ml-3 btn-danger">Remove</button>
+                    <div id="articleCard"></div>
                 </div>
-            </li>
-            <br>
-            <li class="media">
-                <div class="media">
-                    <div class="media-body">
-                        <!-- insert headline in h5 -->
-                        <h5 class="mt-0 mb-1"></h5>
-                        <!-- insert body -->
-                        <p></p>
-                    </div>
-                    <button class="ml-3 btn-primary">Article Notes</button>
-                    <button class="ml-3 btn-danger">Remove</button>
-                </div>
-            </li>
-            <br>
-            <li class="media">
-                <div class="media">
-                    <div class="media-body">
-                        <!-- insert headline in h5 -->
-                        <h5 class="mt-0 mb-1"></h5>
-                        <!-- insert body -->
-                        <p></p>
-                    </div>
-                    <button class="ml-3 btn-primary">Article Notes</button>
-                    <button class="ml-3 btn-danger">Remove</button>
-                </div>
-            </li>
-        </ul>
+    </div>
+    </li>
+    </ul>
     </div>
 
     <div class="modal fade mainSaved modal" id="comments" role="dialog">
@@ -113,7 +68,7 @@
         </a>
     </div>
 </body>
-
+<script src="saved.js"></script>
 <script type="text/javascript">
     $("#comment1").click(function() {
         $("#comments").modal("show")
