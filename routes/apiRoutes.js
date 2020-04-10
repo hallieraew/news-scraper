@@ -5,17 +5,17 @@ module.exports = function(app) {
 
     app.get("/api/articles", function(req, res) {
 
-        db.Article.find({}, function(error, found) {
-            if (error) {
-                console.log(error);
-            } else {
-                res.json(found);
-            }
+        db.Article.find({}).sort({ createdAt: 1 }).then(function(found) {
+            res.json(found)
+        }).catch(function(err) {
+            res.json(err)
         });
     });
 
+    // set new api route here for scraped articles and call scrape function
+
     app.get("/api/saved", function(req, res) {
-        db.Article.find({ "saved": true })
+        db.Article.find({ "saved": true }).sort({ updatedAt: 1 })
 
         .populate("comments")
 
@@ -29,15 +29,32 @@ module.exports = function(app) {
     });
 
 
-    app.post("/saved/:id", function(req, res) {
+    app.put("/api/saved/:id", function(req, res) {
         var saved = req.params.id;
-
-        db.Article.findOneAndUpdate({ _id: saved }, { "saved": true }), (function(err, result) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.json(result)
-            }
+        console.log(saved);
+        db.Article.findOneAndUpdate({ _id: saved }, { "saved": true }, { new: true }).then(function(result) {
+            res.json(result)
+            console.log(result);
+        }).catch(function(err) {
+            res.json(err);
+            console.log(err);
         })
+    })
+
+    app.post("/api/comment", function(req, res) {
+
+        var newNote = req.body;
+
+        db.Comment.create({
+                title: title,
+                body: body,
+            },
+            function(err, inserted) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(inserted);
+                }
+            });
     })
 }

@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 require("./routes/apiRoutes")(app);
-require("./routes/axiosScrape")(app);
+require("./routes/axiosScrape");
 require("./routes/htmlRoutes")(app);
 
 

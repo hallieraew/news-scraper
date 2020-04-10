@@ -27,7 +27,7 @@
     <div class="mainSaved">
         <ul class="list-unstyled">
             <li class="media">
-                <div class="media">
+                <div id="articleCard" class="media">
                     <div class="media-body">
                         <!-- insert headline in h5 -->
                         <h5 class="mt-0 mb-1"></h5>
@@ -96,7 +96,7 @@
                         <label for="exampleFormControlTextarea1">Enter comments here:</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                    <button type="button" class="btn btn-success">Save</button>
+                    <button id="addNote" type="button" class="btn btn-success">Save</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
@@ -118,6 +118,11 @@
     $("#comment1").click(function() {
         $("#comments").modal("show")
     });
+
+    $("#addNote").click(function() {
+        var newNote = req.body;
+
+    })
 </script>
 
 </html>
