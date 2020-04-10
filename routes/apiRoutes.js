@@ -50,13 +50,16 @@ module.exports = function(app) {
         })
     })
 
-    app.post("/api/comment", function(req, res) {
+    app.post("/api/comment/:id", function(req, res) {
 
         var newNote = req.body;
+        var id = req.params.id;
+        var title = req.title;
 
         db.Comment.create({
                 title: title,
-                body: body,
+                body: newNote,
+                _id: id
             },
             function(err, inserted) {
                 if (err) {
