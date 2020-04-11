@@ -6,7 +6,7 @@ module.exports = function(app) {
 
     app.get("/api/articles", function(req, res) {
 
-        db.Article.find({}).sort({ createdAt: 1 }).then(function(found) {
+        db.Article.find({}).sort({ createdAt: -1 }).then(function(found) {
             res.json(found)
         }).catch(function(err) {
             res.json(err)
@@ -21,7 +21,6 @@ module.exports = function(app) {
         })
     });
 
-    // set new api route here for scraped articles and call scrape function
 
     app.get("/api/saved", function(req, res) {
         db.Article.find({ "saved": true }).sort({ updatedAt: 1 })
