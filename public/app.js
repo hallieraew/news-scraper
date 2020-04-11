@@ -38,6 +38,7 @@ $("#new").click(function() {
             $("#articleCard").append(newRow);
             $("#articleCard").append("<hr>");
         }
+
     });
 
 });

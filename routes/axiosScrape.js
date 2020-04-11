@@ -1,5 +1,5 @@
 var express = require("express");
-var logger = require("morgan");
+var app = express();
 var mongoose = require("mongoose");
 
 var axios = require("axios");
@@ -8,7 +8,7 @@ var cheerio = require("cheerio");
 var db = require("../models");
 
 
-module.exports = function axiosScrape() {
+module.exports = function() {
 
     axios.get("https://www.nytimes.com").then(function(response) {
 
@@ -32,9 +32,9 @@ module.exports = function axiosScrape() {
                     },
                     function(err, inserted) {
                         if (err) {
-                            console.log(err);
+                            alert(err);
                         } else {
-                            console.log(inserted);
+                            alert(inserted);
                         }
                     });
             };

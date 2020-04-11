@@ -1,6 +1,6 @@
 var db = require("../models");
 var mongoose = require("mongoose");
-var axiosScrape = require("./axiosScrape");
+// var axiosScrape = require("./axiosScrape");
 
 module.exports = function(app) {
 
@@ -14,16 +14,16 @@ module.exports = function(app) {
     });
 
     app.get("/api/scraped", function(req, res) {
-        axiosScrape().then(function(data) {
-            res.json(data)
+        db.Article.find({}).sort({ createdAt: -1 }).then(function(found) {
+            res.json(found)
         }).catch(function(err) {
             res.json(err)
-        })
+        });
     });
 
 
     app.get("/api/saved", function(req, res) {
-        db.Article.find({ "saved": true }).sort({ updatedAt: 1 })
+        db.Article.find({ "saved": true }).sort({ updatedAt: -1 })
 
         .populate("comments")
 
@@ -53,19 +53,14 @@ module.exports = function(app) {
 
         var newNote = req.body;
         var id = req.params.id;
-        var title = req.title;
-
-        db.Comment.create({
-                title: title,
-                body: newNote,
-                _id: id
-            },
-            function(err, inserted) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(inserted);
-                }
+        console.log(req.body)
+        db.Comment.create(newNote).then(function(dbComment) {
+                return db.Article.findOneAndUpdate({ _id: id }, { comment: dbComment._id }, { new: true });
+            }).then(function(dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function(err) {
+                res.json(err);
             });
-    })
+    });
 }

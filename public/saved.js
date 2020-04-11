@@ -18,18 +18,22 @@ $.get("/api/saved", function(data) {
     }
 });
 
-$("#articleCard").on("click", ".commentIt", function(data) {
+$("#articleCard").on("click", ".commentIt", function() {
     $("#comments").modal("show")
-    $("#addNote").attr(data)
+    var id = $(this).data("id")
+    $("#addNote").attr("data-id", id)
 });
 
 $("#addNote").on("click", function() {
     console.log("clicked");
-    var id = $(this).data("id")
+    var id = $(this).data("id");
+    var body = $(".noteBody").val();
+    console.log(body)
     console.log(id)
-    $.ajax({
-        url: "/api/comment/" + id,
-        method: "PUT",
+    $.ajax("/api/comment/" + id, {
+        id_: id,
+        data: { body },
+        method: "POST",
         success: function(data) {
             console.log(data);
         }
