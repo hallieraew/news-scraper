@@ -13,15 +13,24 @@ $.get("/api/saved", function(data) {
         $("#articleCard").append(newRow);
         $("#articleCard").append("<br>");
         $("#articleCard").append($("<button>").addClass("commentIt btn-success mr-3").attr("data-id", data[i]._id).text("Article Notes"));
-        $("#articleCard").append($("<button>").addClass("ml-3 btn-danger").attr("data-id", data[i]._id).text("Remove"));
+        $("#articleCard").append($("<button>").addClass("removeIt ml-3 btn-danger").attr("data-id", data[i]._id).text("Remove"));
         $("#articleCard").append("<hr>");
     }
 });
 
 $("#articleCard").on("click", ".commentIt", function() {
-    $("#comments").modal("show")
+    $("#comments").modal("show");
+
+    $.get("/api/comment/:id", function(req, res) {
+        if (res) {
+            // append a new comment here
+        } else {
+            // append no comments found
+        }
+    })
     var id = $(this).data("id")
     $("#addNote").attr("data-id", id)
+
 });
 
 $("#addNote").on("click", function() {
