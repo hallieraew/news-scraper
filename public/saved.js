@@ -48,3 +48,8 @@ $("#addNote").on("click", function() {
         }
     })
 });
+
+$("#articleCard").on("click", ".removeIt", function() {
+    $(this.newRow).remove();
+    // also need to create route to findOneandUpdate for saved: false;
+})
