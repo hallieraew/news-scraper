@@ -1,21 +1,17 @@
-var express = require("express");
-var app = express();
-var mongoose = require("mongoose");
-
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var db = require("../models");
 
 
 module.exports = function() {
 
-    axios.get("https://www.nytimes.com").then(function(response) {
+    return axios.get("https://www.nytimes.com").then(function(response) {
 
         var $ = cheerio.load(response.data);
 
-        $("article").each(function(i, element) {
+        var newArticle = [];
 
+        $("article").each(function(i, element) {
 
             var headline = $(element).children().find("h2").text();
 
@@ -25,19 +21,11 @@ module.exports = function() {
 
             if (headline && link && summary) {
 
-                db.Article.create({
-                        headline: headline,
-                        link: link,
-                        summary: summary
-                    },
-                    function(err, inserted) {
-                        if (err) {
-                            alert(err);
-                        } else {
-                            alert(inserted);
-                        }
-                    });
+                newArticle.push({
+                    headline, link, summary
+                })
             };
         })
-    });
+        return newArticle;
+    })
 }
