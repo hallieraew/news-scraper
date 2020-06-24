@@ -15,6 +15,10 @@ Users can scrape for new articles which then save to the db as well. Users can s
 
 ![Screenshot comment modal for users.](public/assets/images/comment.png)
 
+## Future Development
+
+Although users can leave comment, they do not seem to be saving to specific articles. Any comment button will pull up a previously added comment. Remove button is also not live - will not delete from the DB.
+
 ## Tech Spec
 
 This application was built with JavaScript, jQuery, HTML, CSS, and Bootstrap.
